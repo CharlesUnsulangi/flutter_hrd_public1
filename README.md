@@ -1,4 +1,4 @@
-# flutter_hrd_public
+
 
 A new Flutter project.
 
@@ -57,3 +57,17 @@ crashes. The static analysis rules will help enforce many of these.
 | **Async Flow**        | `fetch(); display();`                               | `final data = await fetch(); display(data);`                        |
 | **Dependencies**      | Menggunakan versi lama (misal: `http: ^0.13.5`)     | Selalu cek versi terbaru di [pub.dev](https://pub.dev)              |
 | **`late` Keyword**    | `late String name;` (tanpa inisialisasi yang pasti) | `late final String name = init();` atau inisialisasi di `initState` |
+
+#### Contoh Praktis: Model Data Aman
+
+Contoh class `User` ini menerapkan Null Safety secara ketat. `name` bersifat opsional (bisa `null`),
+sedangkan `age` bersifat wajib (`required`) dan tidak akan pernah `null`.
+
+```dart
+class User {
+  final String? name;
+  final int age;
+
+  User({this.name, required this.age});
+}
+```

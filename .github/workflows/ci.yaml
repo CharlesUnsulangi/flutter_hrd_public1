@@ -1,0 +1,46 @@
+# .github/workflows/ci.yaml
+
+name: Flutter CI
+
+# Pemicu: Kapan workflow ini akan berjalan
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Menjalankan di server virtual Linux Ubuntu
+
+    steps:
+      # 1. Checkout kode dari repositori
+      - uses: actions/checkout@v3
+
+      # 2. Setup Java (diperlukan untuk build Android)
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      # 3. Setup Flutter SDK
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable' # Menggunakan channel Flutter yang stabil
+          cache: true # Mengaktifkan cache untuk mempercepat build berikutnya
+
+      # 4. Dapatkan semua dependensi proyek
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 5. Analisis kode untuk error dan warning
+      - name: Analyze project source
+        run: flutter analyze --fatal-infos # Menganggap info sebagai error
+
+      # 6. Periksa apakah semua kode sudah diformat
+      - name: Check for formatting issues
+        run: dart format --output=none --set-exit-if-changed .
+
+      # 7. Jalankan semua tes (unit & widget tests)
+      - name: Run tests
+        run: flutter test

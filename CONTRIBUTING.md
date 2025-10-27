@@ -9,49 +9,45 @@ terdeteksi** dalam aplikasi Flutter.
 
 ---
 
-## FILOSOFI UTAMA
-> **“Verify first. Code safe. Crash never.”**
-> **Lebih baik tanya 100 kali daripada satu crash di produksi.**
+## Alur Kerja Pengembangan
+
+(Diagram disertakan)
 
 ---
 
-## 1. PRINSIP UTAMA (WAJIB DIPATUHI)
+## 1. Arsitektur & Praktik Terbaik
 
-| No | Prinsip                         | Deskripsi                                                                |
-|----|---------------------------------|--------------------------------------------------------------------------|
-| 1  | **Analisis Terlebih Dahulu**    | Baca struktur proyek, `pubspec.yaml`, dan file terkait sebelum ubah kode |
-| 2  | **Verifikasi Sebelum Mengubah** | Cek file ada, import lengkap, tidak ada konflik                          |
-| 3  | **Incremental Changes**         | Ubah **satu per satu**, test, baru lanjut                                |
-| 4  | **Rollback Jika Error**         | Simpan kode lama → kembalikan jika gagal                                 |
+- **State Management:** Menggunakan **Riverpod** untuk konsistensi.
+- **Manajemen Aset:** Menggunakan `flutter_gen_runner` untuk akses aset yang aman. Jalankan
+  `dart run build_runner build` setelah menambah aset.
+- **Manajemen Konstanta:** Pusatkan semua string, dimensi, dan warna di `lib/utils/constants.dart`.
 
 ---
 
-## 2. CHECKLIST KEAMANAN KODE
+## 2. Struktur Proyek
 
-### Sebelum Menulis Kode
-```markdown
-[ ] Requirement 100% jelas?
-[ ] Struktur folder & file dipahami?
-[ ] Dependencies di pubspec.yaml dicek?
-[ ] Potensi konflik terdeteksi?
-```
+(Diagram struktur folder disertakan)
 
-### Saat Menulis Kode
-```markdown
-[ ] Null safety: ?, !, ??, late digunakan dengan benar
-[ ] try-catch pada operasi berisiko (API calls, file I/O)
-[ ] `const` constructor digunakan untuk widget statis demi performa
-[ ] Key ditambahkan pada widget di dalam list (ValueKey/UniqueKey)
-[ ] Hindari nested widget yang terlalu dalam (> 6 level)
-[ ] `if (mounted)` digunakan sebelum `setState` di dalam operasi async
-```
+---
 
-### Setelah Menulis Kode (Final Review)
+## 3. Perintah CLI yang Berguna
 
-```markdown
-[ ] Kode sudah di-format (Ctrl+Alt+L atau Cmd+Option+L)
-[ ] Tidak ada warning atau error dari analyzer
-[ ] Semua import terpakai dan diurutkan
-[ ] Komentar ditambahkan pada logika yang kompleks
-[ ] Logika kode sudah sesuai dengan requirement awal
-```
+| Kategori         | Perintah               | Deskripsi                                                     |
+|------------------|------------------------|---------------------------------------------------------------|
+| **Dependencies** | `flutter pub get`      | Mengunduh semua dependensi yang terdaftar di `pubspec.yaml`.  |
+|                  | `flutter pub upgrade`  | Memperbarui dependensi ke versi terbaru yang diizinkan.       |
+|                  | `flutter pub outdated` | Mengecek dependensi mana yang sudah usang.                    |
+| **Build & Run**  | `flutter run`          | Menjalankan aplikasi dalam mode debug.                        |
+|                  | `flutter build apk`    | Membuat file APK rilis untuk Android.                         |
+| **Perbaikan**    | `flutter clean`        | Menghapus file build sementara untuk mengatasi masalah cache. |
+|                  | `dart format .`        | Memformat semua file Dart di proyek sesuai standar.           |
+| **Pengujian**    | `flutter test`         | Menjalankan semua unit dan widget test.                       |
+|                  | `flutter drive`        | Menjalankan integration test (membutuhkan setup tambahan).    |
+| **Pemeriksaan**  | `flutter analyze`      | Menganalisis kode untuk menemukan error dan warning.          |
+|                  | `flutter doctor`       | Memeriksa kesehatan instalasi Flutter Anda.                   |
+
+---
+
+## 4. Panduan Pengkodean Lanjutan
+
+(Detail checklist dan pola-pola lanjutan disertakan)
