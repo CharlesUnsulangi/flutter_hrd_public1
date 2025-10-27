@@ -1,5 +1,4 @@
 # AI Flutter Safety Guidelines
-
 **Panduan Resmi untuk Pengembangan Aman, Stabil, dan Bebas Crash 99,99 %**
 
 > **Versi:** 3.0
@@ -11,7 +10,6 @@ terdeteksi** dalam aplikasi Flutter.
 ---
 
 ## FILOSOFI UTAMA
-
 > **“Verify first. Code safe. Crash never.”**
 > **Lebih baik tanya 100 kali daripada satu crash di produksi.**
 
@@ -31,7 +29,6 @@ terdeteksi** dalam aplikasi Flutter.
 ## 2. CHECKLIST KEAMANAN KODE
 
 ### Sebelum Menulis Kode
-
 ```markdown
 [ ] Requirement 100% jelas?
 [ ] Struktur folder & file dipahami?
@@ -40,7 +37,6 @@ terdeteksi** dalam aplikasi Flutter.
 ```
 
 ### Saat Menulis Kode
-
 ```markdown
 [ ] Null safety: ?, !, ??, late digunakan dengan benar
 [ ] try-catch pada operasi berisiko (API calls, file I/O)
@@ -48,4 +44,14 @@ terdeteksi** dalam aplikasi Flutter.
 [ ] Key ditambahkan pada widget di dalam list (ValueKey/UniqueKey)
 [ ] Hindari nested widget yang terlalu dalam (> 6 level)
 [ ] `if (mounted)` digunakan sebelum `setState` di dalam operasi async
+```
+
+### Setelah Menulis Kode (Final Review)
+
+```markdown
+[ ] Kode sudah di-format (Ctrl+Alt+L atau Cmd+Option+L)
+[ ] Tidak ada warning atau error dari analyzer
+[ ] Semua import terpakai dan diurutkan
+[ ] Komentar ditambahkan pada logika yang kompleks
+[ ] Logika kode sudah sesuai dengan requirement awal
 ```
